@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>لوحة التحكم</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>لوحة تحكم الأجهزة</h2>
+    <input type="text" id="deviceId" placeholder="ID الجهاز">
+    <button onclick="sendCommand('get_location')">طلب الموقع</button>
+    <button onclick="sendCommand('capture_photo')">التقاط صورة</button>
+
+    <script>
+        const ws = new WebSocket("ws://localhost:8080");
+
+        function sendCommand(cmd) {
+            const deviceId = document.getElementById("deviceId").value;
+            const message = {
+                to: deviceId,
+                command: cmd
+            };
+            ws.send(JSON.stringify(message));
+        }
+    </script>
+</body>
+</html>
